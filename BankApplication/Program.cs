@@ -10,6 +10,8 @@ namespace BankApplication
     {
         static void Main(string[] args)
         {
+            ArrayList Alena = new ArrayList();
+            
             //Коллекция №1
             List<CommonInfo> Info1 = new List<CommonInfo> ();
             Info1.Add(new CommonInfo() { TypeInfo = "Операции с депозитным счетом не ограничены временными параметрами." });
@@ -78,7 +80,6 @@ namespace BankApplication
                 Console.WriteLine(p.Name);
             }
 
-
             Bank<Account> bank = new Bank<Account>("ЮнитБанк");
             bool alive = true;
             while (alive)
@@ -87,7 +88,6 @@ namespace BankApplication
                 Console.ForegroundColor = ConsoleColor.DarkGreen; // выводим список команд зеленым цветом
                 Console.WriteLine("1. Открыть счет \t 2. Вывести средства  \t 3. Добавить на счет");
                 Console.WriteLine("4. Закрыть счет \t 5. Пропустить день \t 6. Выйти из программы");
-                Console.WriteLine("7. Сохранить информацию о счете");
                 Console.WriteLine("Введите номер пункта:");
                 Console.ForegroundColor = color;
                 try
@@ -113,8 +113,6 @@ namespace BankApplication
                         case 6:
                             alive = false;
                             continue;
-                       
-
                     }
                     bank.CalculatePercentage();
                 }
@@ -147,11 +145,10 @@ namespace BankApplication
             bank.Open(accountType,
                 sum,
                 AddSumHandler,  // обработчик добавления средств на счет
-                (o, e)=>Console.WriteLine(e.Message), // обработчик вывода средств
+                WithdrawSumHandler, // обработчик вывода средств
                 (o, e) => Console.WriteLine(e.Message), // обработчик начислений процентов в виде лямбда-выражения
                 CloseAccountHandler, // обработчик закрытия счета
                 OpenAccountHandler); // обработчик открытия счета
-            
         }
 
         private static void Withdraw(Bank<Account> bank)
@@ -204,7 +201,5 @@ namespace BankApplication
         {
             Console.WriteLine(e.Message);
         }
-       
     }
-   
 }

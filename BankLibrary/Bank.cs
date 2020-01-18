@@ -49,7 +49,7 @@ namespace BankLibrary
                 T[] tempAccounts = new T[accounts.Length + 1];
                 for (int i = 0; i < accounts.Length; i++)
                     tempAccounts[i] = accounts[i];
-                tempAccounts[tempAccounts.Length-1] = newAccount;
+                tempAccounts[tempAccounts.Length - 1] = newAccount;
                 accounts = tempAccounts;
             }
             // установка обработчиков событий счета
@@ -58,7 +58,7 @@ namespace BankLibrary
             newAccount.Closed += closeAccountHandler;
             newAccount.Opened += openAccountHandler;
             newAccount.Calculated += calculationHandler;
-            
+
             newAccount.Open();
         }
         //добавление средств на счет

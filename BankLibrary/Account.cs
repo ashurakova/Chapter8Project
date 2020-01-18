@@ -86,7 +86,6 @@ namespace BankLibrary
         protected internal virtual void Open()
         {
             OnOpened(new AccountEventArgs($"Открыт новый счет! Id счета: {Id}", Sum));
-            
         }
         // закрытие счета
         protected internal virtual void Close()
@@ -107,3 +106,4 @@ namespace BankLibrary
         }
     }
 }
+
