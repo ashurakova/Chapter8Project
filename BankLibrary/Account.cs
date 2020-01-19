@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BankLibrary
+﻿namespace BankLibrary
 {
     public abstract class Account : IAccount
     {
@@ -19,14 +15,12 @@ namespace BankLibrary
 
         static int counter = 0;
         protected int _days = 0; // время с момента открытия счета
-
         public Account(decimal sum, int percentage)
         {
             Sum = sum;
             Percentage = percentage;
             Id = ++counter;
         }
-
         // Текущая сумма на счету
         public decimal Sum { get; private set; }
         // Процент начислений
@@ -60,7 +54,6 @@ namespace BankLibrary
         {
             CallEvent(e, Calculated);
         }
-
         public virtual void Put(decimal sum)
         {
             Sum += sum;
@@ -92,7 +85,6 @@ namespace BankLibrary
         {
             OnClosed(new AccountEventArgs($"Счет {Id} закрыт.  Итоговая сумма: {Sum}", Sum));
         }
-
         protected internal void IncrementDays()
         {
             _days++;
@@ -106,4 +98,3 @@ namespace BankLibrary
         }
     }
 }
-

@@ -1,4 +1,4 @@
-﻿namespace BankLibrary
+﻿namespace BankLibrary.Collections
 {
     public class CommonInfo
     {
