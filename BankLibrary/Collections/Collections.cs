@@ -32,82 +32,89 @@ namespace BankLibrary.Collections
                 Console.WriteLine(keyValue.Key + "-" + keyValue.Value);
             }
             Console.WriteLine("\n" + "Введите цифру, чтобы выбрать язык:");
-            bool al = true;
-                while (al)
-            {
-                try
+            bool alive = true;
+                while (alive)
                 {
-                    int LangNum = Convert.ToInt32(Console.ReadLine());
-                    if (LangNum == 1)
-                    {
-                        Console.WriteLine($"Вы выбрали {Language[1]} язык.");
-                        break;
-                    }
-                    else if (LangNum > 1 && LangNum < 6)
-                    {
-                        Console.WriteLine($"\n"+"Извините, данный язык не поддерживается.");
-                        Language.Remove(2);
-                        Language.Remove(3);
-                        Language.Remove(4);
-                        Language.Remove(5);
-                        Console.WriteLine("На данный момент доступны следующие языки:");
-                        foreach (string p in Language.Values)
+                    try
+                    {   
+                        int LangNum = Convert.ToInt32(Console.ReadLine());
+                        if (LangNum == 1)
                         {
-                            Console.WriteLine(p);
+                            Console.WriteLine($"Вы выбрали {Language[1]} язык.");
+                            alive=false;
                         }
-                        Console.WriteLine($"Данный язык выбран по умолчанию.");
-                        break;
+                        else if (LangNum > 1 && LangNum < 6)
+                        {
+                            Console.WriteLine($"\n"+"Извините, данный язык не поддерживается.");
+                            Language.Remove(2);
+                            Language.Remove(3);
+                            Language.Remove(4);
+                            Language.Remove(5);
+                            Console.WriteLine("На данный момент доступны следующие языки:");
+                            foreach (string p in Language.Values)
+                            {
+                                Console.WriteLine(p);
+                            }
+                            Console.WriteLine($"Данный язык выбран по умолчанию.");
+                            alive = false;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Язык под номером {LangNum} в списке не найден. Пожалуйста, выберите язык из списка предложенных: ");
+                            foreach (KeyValuePair<int, string> keyValue in Language)
+                            {
+                                Console.WriteLine(keyValue.Key + "-" + keyValue.Value);
+                            }
+                        }
                     }
-                    else
+                    catch
                     {
-                        Console.WriteLine($"Язык под номером {LangNum} в списке не найден. Пожалуйста, выберите язык из списка предложенных: ");
+                        Console.WriteLine("Введенное значение некорректно. Пожалуйста, для выбора языка введите соответствующую ему цифру:");
                         foreach (KeyValuePair<int, string> keyValue in Language)
                         {
                             Console.WriteLine(keyValue.Key + "-" + keyValue.Value);
                         }
-
                     }
                 }
-                catch
-                {
-                    Console.WriteLine("Введенное значение некорректно. Пожалуйста, для выбора языка введите соответствующую ему цифру:");
-                    foreach (KeyValuePair<int, string> keyValue in Language)
-                    {
-                        Console.WriteLine(keyValue.Key + "-" + keyValue.Value);
-                    }
-                }
-            }
         }
-            public static void CallDictionaryCollection()
+        public static void CallDictionaryCollection()
+        {
+            Queue<PeopleQueue> people = new Queue<PeopleQueue>();
+            people.Enqueue(new PeopleQueue() { Name = "Алёна" });
+            people.Enqueue(new PeopleQueue() { Name = "Жора" });
+            Console.WriteLine("\n"+"Количество посетителей в очереди на данный момент - {0}:", people.Count);
+            foreach (PeopleQueue p in people)
             {
-                Queue<PeopleQueue> people = new Queue<PeopleQueue>();
-                people.Enqueue(new PeopleQueue() { Name = "Алёна" });
-                people.Enqueue(new PeopleQueue() { Name = "Жора" });
-
-                Console.WriteLine("\n"+"Количество посетителей в очереди на данный момент - {0}:", people.Count);
-                foreach (PeopleQueue p in people)
-                {
-                    Console.WriteLine(p.Name);
-                }
-                PeopleQueue firstPerson = people.Peek();
-                Console.WriteLine($"{firstPerson.Name} - первый посетитель в очереди. Удалить данного посестителя из очереди?"+"\n"+"1.Да 2.Нет");
+                Console.WriteLine(p.Name);
+            }
+            PeopleQueue firstPerson = people.Peek();
+            bool alive = true;
+            while (alive)
+            {
+                Console.WriteLine($"{firstPerson.Name} - первый посетитель в очереди. Удалить данного посетителя из очереди?"+"\n"+"Пожалуйста, введите 'Да', чтобы удалить первого посетителя из очереди, или введите 'Нет', чтобы оставить первого посетителя в очереди.");
                 string delQueue = Console.ReadLine();
-                string delqueuelower = delQueue.ToLower();
-                if (delqueuelower == "да" || delQueue == "1")
+                if (delQueue.ToLower() == "да")
                 {
                     PeopleQueue deletedPers = people.Dequeue();
                     Console.WriteLine($"Посетитель {firstPerson.Name}  удален из очереди.");
+                    alive = false;
+                }
+                else if (delQueue.ToLower()=="нет")
+                {
+                    Console.WriteLine($"Посетитель {firstPerson.Name} не удален из очереди.");
+                    alive = false;
                 }
                 else
                 {
-                    Console.WriteLine($"Посетитель {firstPerson.Name} не удален из очереди.");
+                    Console.WriteLine("Введенное значение неккоректно.");
                 }
-                Console.WriteLine("Посетители, находящиеся в очереди в данный момент:");
-                foreach (PeopleQueue p in people)
-                {
-                    Console.WriteLine(p.Name);
-                }
-                Console.WriteLine("");
             }
+            Console.WriteLine("Посетители, находящиеся в очереди в данный момент:");
+            foreach (PeopleQueue p in people)
+            {
+                Console.WriteLine(p.Name);
+            }
+            Console.WriteLine("");
+        }
     }
 }
