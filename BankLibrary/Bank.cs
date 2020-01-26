@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections;
-using System.Text;
 
 namespace BankLibrary
 {
@@ -14,9 +11,7 @@ namespace BankLibrary
     public class Bank<T> where T : Account
     {
         T[] accounts;
-
         public string Name { get; private set; }
-
         public Bank(string name)
         {
             this.Name = name;
@@ -28,7 +23,6 @@ namespace BankLibrary
             AccountStateHandler openAccountHandler)
         {
             T newAccount = null;
-
             switch (accountType)
             {
                 case AccountType.Ordinary:
@@ -38,7 +32,6 @@ namespace BankLibrary
                     newAccount = new DepositAccount(sum, 40) as T;
                     break;
             }
-
             if (newAccount == null)
                 throw new Exception("Ошибка создания счета");
             // добавляем новый счет в массив счетов      
@@ -49,7 +42,7 @@ namespace BankLibrary
                 T[] tempAccounts = new T[accounts.Length + 1];
                 for (int i = 0; i < accounts.Length; i++)
                     tempAccounts[i] = accounts[i];
-                tempAccounts[tempAccounts.Length-1] = newAccount;
+                tempAccounts[tempAccounts.Length - 1] = newAccount;
                 accounts = tempAccounts;
             }
             // установка обработчиков событий счета
@@ -58,7 +51,7 @@ namespace BankLibrary
             newAccount.Closed += closeAccountHandler;
             newAccount.Opened += openAccountHandler;
             newAccount.Calculated += calculationHandler;
-            
+
             newAccount.Open();
         }
         //добавление средств на счет
@@ -84,7 +77,6 @@ namespace BankLibrary
             T account = FindAccount(id, out index);
             if (account == null)
                 throw new Exception("Счет не найден");
-
             account.Close();
 
             if (accounts.Length <= 1)
@@ -101,7 +93,6 @@ namespace BankLibrary
                 accounts = tempAccounts;
             }
         }
-
         // начисление процентов по счетам
         public void CalculatePercentage()
         {
@@ -114,7 +105,6 @@ namespace BankLibrary
                 account.Calculate();
             }
         }
-
         // поиск счета по id
         public T FindAccount(int id)
         {
