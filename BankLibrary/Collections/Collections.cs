@@ -18,6 +18,7 @@ namespace BankLibrary.Collections
                 Console.WriteLine(i.TypeInfo);
             }
         }
+
         public static void CallQueueCollection()
         {
             Dictionary<int, string> Language = new Dictionary<int, string>(5);
@@ -32,8 +33,8 @@ namespace BankLibrary.Collections
                 Console.WriteLine(keyValue.Key + "-" + keyValue.Value);
             }
             Console.WriteLine("\n" + "Введите цифру, чтобы выбрать язык:");
-            bool alive = true;
-                while (alive)
+            bool IsInputAlive = false;
+                while (!IsInputAlive)
                 {
                     try
                     {   
@@ -41,7 +42,7 @@ namespace BankLibrary.Collections
                         if (LangNum == 1)
                         {
                             Console.WriteLine($"Вы выбрали {Language[1]} язык.");
-                            alive=false;
+                            IsInputAlive = true;
                         }
                         else if (LangNum > 1 && LangNum < 6)
                         {
@@ -56,7 +57,7 @@ namespace BankLibrary.Collections
                                 Console.WriteLine(p);
                             }
                             Console.WriteLine($"Данный язык выбран по умолчанию.");
-                            alive = false;
+                            IsInputAlive = true;
                         }
                         else
                         {
@@ -77,6 +78,7 @@ namespace BankLibrary.Collections
                     }
                 }
         }
+
         public static void CallDictionaryCollection()
         {
             Queue<PeopleQueue> people = new Queue<PeopleQueue>();
@@ -88,8 +90,8 @@ namespace BankLibrary.Collections
                 Console.WriteLine(p.Name);
             }
             PeopleQueue firstPerson = people.Peek();
-            bool alive = true;
-            while (alive)
+            bool deletionInFinished = false;
+            while (!deletionInFinished)
             {
                 Console.WriteLine($"{firstPerson.Name} - первый посетитель в очереди. Удалить данного посетителя из очереди?"+"\n"+"Пожалуйста, введите 'Да', чтобы удалить первого посетителя из очереди, или введите 'Нет', чтобы оставить первого посетителя в очереди.");
                 string delQueue = Console.ReadLine();
@@ -97,12 +99,12 @@ namespace BankLibrary.Collections
                 {
                     PeopleQueue deletedPers = people.Dequeue();
                     Console.WriteLine($"Посетитель {firstPerson.Name}  удален из очереди.");
-                    alive = false;
+                    deletionInFinished = true;
                 }
                 else if (delQueue.ToLower()=="нет")
                 {
                     Console.WriteLine($"Посетитель {firstPerson.Name} не удален из очереди.");
-                    alive = false;
+                    deletionInFinished = true;
                 }
                 else
                 {
